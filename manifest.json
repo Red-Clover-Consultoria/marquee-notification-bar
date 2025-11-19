@@ -1,7 +1,7 @@
 {
   "vendor": "redcloverqa",
   "name": "marquee-notification-bar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "title": "Marquee Notification Bar",
   "description": "A customizable notification bar with marquee effect for VTEX IO stores",
   "builders": {
