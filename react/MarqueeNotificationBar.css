@@ -1,0 +1,106 @@
+.marqueeContainer {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.marqueeWrapper {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.marqueeContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  animation: marquee 25s linear infinite;
+  will-change: transform;
+  min-width: 100%;
+}
+
+.marqueeContent:first-child {
+  padding-left: 100%;
+}
+
+.marqueeMessage {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.marqueeText {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.marqueeIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  max-width: 24px;
+  max-height: 24px;
+  object-fit: contain;
+}
+
+.marqueeSeparator {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Modo sin animación - centrado */
+.marqueeWrapper .marqueeContent[style*="animation: none"] {
+  animation: none !important;
+  padding: 0;
+  justify-content: center;
+  width: 100%;
+  min-width: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .marqueeContainer {
+    padding: 8px 0;
+  }
+
+  .marqueeMessage {
+    gap: 6px;
+  }
+
+  .marqueeText {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+  }
+
+  .marqueeIcon {
+    max-width: 18px;
+    max-height: 18px;
+    font-size: 1em;
+  }
+
+  .marqueeSeparator {
+    padding: 0 1rem;
+    font-size: 14px;
+  }
+
+  .marqueeContent {
+    gap: 6px;
+  }
+}

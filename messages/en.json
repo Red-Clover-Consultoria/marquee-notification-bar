@@ -1,4 +1,15 @@
 {
-  "admin/test": "test",
-  "store/test": "test"
+  "editor.marquee-notification-bar.title": "Marquee Notification Bar",
+  "editor.marquee-notification-bar.description": "Notification bar with marquee scrolling effect",
+  "editor.marquee-notification-bar.messages": "Messages",
+  "editor.marquee-notification-bar.messages.text": "Message text",
+  "editor.marquee-notification-bar.messages.icon": "Icon or Emoji",
+  "editor.marquee-notification-bar.messages.iconPosition": "Icon position",
+  "editor.marquee-notification-bar.separator": "Separator between messages",
+  "editor.marquee-notification-bar.backgroundColor": "Background color",
+  "editor.marquee-notification-bar.textColor": "Text color",
+  "editor.marquee-notification-bar.fontSize": "Font size",
+  "editor.marquee-notification-bar.speed": "Animation speed",
+  "editor.marquee-notification-bar.pauseOnHover": "Pause on hover",
+  "editor.marquee-notification-bar.showMarquee": "Enable marquee animation"
 }

@@ -1,0 +1,7 @@
+{
+  "marquee-notification-bar": {
+    "component": "MarqueeNotificationBar",
+    "composition": "children",
+    "allowed": "*"
+  }
+}

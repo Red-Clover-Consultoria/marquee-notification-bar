@@ -1,114 +1,258 @@
-📢 Use this project, [contribute](https://github.com/{OrganizationName}/{AppName}) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+# Marquee Notification Bar
 
-# APP NAME
+A customizable notification bar with marquee scrolling effect for VTEX IO stores. Display multiple promotional messages, announcements, or important information with smooth animations and full customization options.
 
-<!-- DOCS-IGNORE:start -->
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-<!-- DOCS-IGNORE:end -->
+## Features
 
-Under the app's name, you should explain the topic, giving a **brief description** of its **functionality** in a store when installed.
+- Multiple messages support with customizable separators
+- Icon/emoji support with configurable position (left or right)
+- Marquee animation with adjustable speed (slow, normal, fast)
+- Pause animation on hover
+- Toggle marquee effect on/off (centered mode)
+- Fully customizable colors, fonts, and styling
+- Responsive design for mobile and desktop
+- CSS Handles for advanced customization
 
-Next, **add media** (either an image of a GIF) with the rendered components, so that users can better understand how the app works in practice. 
+## Configuration
 
-![Media Placeholder](https://user-images.githubusercontent.com/52087100/71204177-42ca4f80-227e-11ea-89e6-e92e65370c69.png)
+### Step 1 - Adding the app as a dependency
 
-## Configuration 
+Add `redcloverqa.marquee-notification-bar` to your theme's dependencies in the `manifest.json` file:
 
-In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
+```json
+{
+  "dependencies": {
+    "redcloverqa.marquee-notification-bar": "0.x"
+  }
+}
+```
 
-1. Adding the app as a theme dependency in the `manifest.json` file;
-2. Declaring the app's main block in a given theme template or inside another block from the theme.
+### Step 2 - Adding the block to your theme
 
-Remember to add a table with all blocks exported by the app and their descriptions. You can verify an example of it on the [Search Result documentation](https://vtex.io/docs/components/all/vtex.search-result@3.56.1/). 
+Add the `marquee-notification-bar` block to your desired template or layout. For example, in your `store/blocks/header/header.jsonc`:
 
-Next, add the **props table** containing your block's props. 
+```json
+{
+  "header-layout.desktop": {
+    "children": [
+      "marquee-notification-bar",
+      "header-row#desktop"
+    ]
+  }
+}
+```
 
-If the app exports more than one block, create several tables - one for each block. For example:
+### Step 3 - Configuring the block
 
-### `block-1` props
+Configure the block properties in your theme's blocks file:
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+```json
+{
+  "marquee-notification-bar": {
+    "props": {
+      "messages": [
+        {
+          "text": "3 CUOTAS SIN INTERÉS desde $60.000",
+          "icon": "🎉",
+          "iconPosition": "left"
+        },
+        {
+          "text": "ENVÍO GRATIS en compras mayores a $80.000",
+          "icon": "🚚",
+          "iconPosition": "left"
+        },
+        {
+          "text": "20% OFF en segunda unidad",
+          "icon": "⭐",
+          "iconPosition": "left"
+        }
+      ],
+      "separator": "•",
+      "backgroundColor": "#000000",
+      "textColor": "#ffffff",
+      "fontSize": "14px",
+      "speed": "normal",
+      "pauseOnHover": true,
+      "showMarquee": true
+    }
+  }
+}
+```
 
+## Props
 
-### `block-2` props
+### `marquee-notification-bar` props
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+| Prop name | Type | Description | Default value |
+| --------- | ---- | ----------- | ------------- |
+| `messages` | `array` | Array of message objects to display in the marquee | `[{"text": "3 CUOTAS SIN INTERÉS desde $60.000", "icon": "🎉", "iconPosition": "left"}]` |
+| `separator` | `string` | Character or symbol to separate messages (e.g., •, \|, -, etc) | `"•"` |
+| `backgroundColor` | `string` | Background color in hex format (e.g., #f5f5f5) | `"#f5f5f5"` |
+| `textColor` | `string` | Text color in hex format (e.g., #333333) | `"#333333"` |
+| `fontSize` | `enum` | Text size: `12px`, `14px`, `16px`, `18px` | `"14px"` |
+| `speed` | `enum` | Animation speed: `slow`, `normal`, `fast` | `"normal"` |
+| `pauseOnHover` | `boolean` | Pause animation when user hovers over the bar | `true` |
+| `showMarquee` | `boolean` | Enable/disable marquee animation. When disabled, text is centered without animation | `true` |
 
-Prop types are: 
+### `messages` array object structure
 
-- `string` 
-- `enum` 
-- `number` 
-- `boolean` 
-- `object` 
-- `array` 
+Each message object in the `messages` array can have the following properties:
 
-When documenting a prop whose type is `object` or `array` another prop table will be needed. You can create it following the example below:
+| Prop name | Type | Description | Default value |
+| --------- | ---- | ----------- | ------------- |
+| `text` | `string` | The message content to display | `""` |
+| `icon` | `string` | URL of image/SVG or emoji (e.g., 🎉, 🔥, ⭐) | `""` |
+| `iconPosition` | `enum` | Position of icon relative to text: `left` or `right` | `"left"` |
 
-- `propName` object:
+## Animation Speeds
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+| Speed | Duration | Best for |
+| ----- | -------- | -------- |
+| `slow` | 40s | Long messages, detailed reading |
+| `normal` | 25s | Standard announcements (recommended) |
+| `fast` | 15s | Short, urgent messages |
 
+## Examples
 
-Remember to also use this Configuration section to  **showcase any necessary disclaimer** related to the app and its blocks, such as the different behavior it may display during its configuration. 
+### Example 1: Single promotional message
 
-## Modus Operandi *(not mandatory)*
+```json
+{
+  "marquee-notification-bar": {
+    "props": {
+      "messages": [
+        {
+          "text": "BLACK FRIDAY - Up to 70% OFF on selected items!",
+          "icon": "🔥",
+          "iconPosition": "left"
+        }
+      ],
+      "backgroundColor": "#FF0000",
+      "textColor": "#FFFFFF",
+      "fontSize": "16px",
+      "speed": "normal"
+    }
+  }
+}
+```
 
-There are scenarios in which an app can behave differently in a store, according to how it was added to the catalog, for example. It's crucial to go through these **behavioral changes** in this section, allowing users to fully understand the **practical application** of the app in their store.
+### Example 2: Multiple rotating announcements
 
-If you feel compelled to give further details about the app, such as it's **relationship with the VTEX admin**, don't hesitate to use this section. 
+```json
+{
+  "marquee-notification-bar": {
+    "props": {
+      "messages": [
+        {
+          "text": "Free shipping on orders over $50",
+          "icon": "🚚",
+          "iconPosition": "left"
+        },
+        {
+          "text": "New arrivals every week",
+          "icon": "✨",
+          "iconPosition": "left"
+        },
+        {
+          "text": "24/7 Customer support",
+          "icon": "💬",
+          "iconPosition": "left"
+        }
+      ],
+      "separator": "|",
+      "backgroundColor": "#f5f5f5",
+      "textColor": "#333333",
+      "fontSize": "14px",
+      "speed": "normal",
+      "pauseOnHover": true
+    }
+  }
+}
+```
+
+### Example 3: Static banner (no animation)
+
+```json
+{
+  "marquee-notification-bar": {
+    "props": {
+      "messages": [
+        {
+          "text": "Important: Store will be closed on December 25th",
+          "icon": "⚠️",
+          "iconPosition": "left"
+        }
+      ],
+      "backgroundColor": "#FFF3CD",
+      "textColor": "#856404",
+      "fontSize": "14px",
+      "showMarquee": false
+    }
+  }
+}
+```
 
 ## Customization
 
-The first thing that should be present in this section is the sentence below, showing users the recipe pertaining to CSS customization in apps:
+In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
 
-`In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).`
+### CSS Handles
 
-Thereafter, you should add a single column table with the available CSS handles for the app, like the one below. Note that the Handles must be ordered alphabetically.
+| CSS Handle | Description |
+| ---------- | ----------- |
+| `marqueeContainer` | Main container wrapper |
+| `marqueeContent` | Animated content wrapper |
+| `marqueeIcon` | Icon/emoji container |
+| `marqueeMessage` | Individual message container |
+| `marqueeSeparator` | Separator between messages |
+| `marqueeText` | Text content |
+| `marqueeWrapper` | Inner wrapper for animation |
 
-| CSS Handles |
-| ----------- | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` |
+### Customization Example
 
+```css
+/* Custom styling for the notification bar */
+.marqueeContainer {
+  border-top: 2px solid #e5e5e5;
+  border-bottom: 2px solid #e5e5e5;
+  padding: 12px 0;
+}
 
-If there are none, add the following sentence instead:
+.marqueeText {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
 
-`No CSS Handles are available yet for the app customization.`
+.marqueeIcon {
+  filter: grayscale(100%);
+}
 
-<!-- DOCS-IGNORE:start -->
+.marqueeSeparator {
+  color: #ff0000;
+  font-size: 20px;
+}
+```
 
-## Contributors ✨
+## Browser Support
 
-Thanks goes to these wonderful people:
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+## Notes
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
+- If no messages are provided, the component will not render anything
+- Images used as icons should be optimized for web (< 50KB recommended)
+- For best performance, limit the number of messages to 5-10
+- The component is fully responsive and adapts to mobile screens automatically
 
-<!-- DOCS-IGNORE:end -->
+## Contributors
 
----- 
+This app was developed by Red Clover QA team.
 
-Check out some documentation models that are already live: 
-- [Breadcrumb](https://github.com/vtex-apps/breadcrumb)
-- [Image](https://vtex.io/docs/components/general/vtex.store-components/image)
-- [Condition Layout](https://vtex.io/docs/components/all/vtex.condition-layout@1.1.6/)
-- [Add To Cart Button](https://vtex.io/docs/components/content-blocks/vtex.add-to-cart-button@0.9.0/)
-- [Store Form](https://vtex.io/docs/components/all/vtex.store-form@0.3.4/)
+---
+
+**Note:** Custom apps are the responsibility of the vendor and VTEX does not provide direct support for them.

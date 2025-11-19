@@ -1,4 +1,15 @@
 {
-  "admin/test": "teste",
-  "store/test": "teste"
+  "editor.marquee-notification-bar.title": "Barra de Notificación Marquee",
+  "editor.marquee-notification-bar.description": "Barra de notificación con efecto de desplazamiento marquee",
+  "editor.marquee-notification-bar.messages": "Mensajes",
+  "editor.marquee-notification-bar.messages.text": "Texto del mensaje",
+  "editor.marquee-notification-bar.messages.icon": "Icono o Emoji",
+  "editor.marquee-notification-bar.messages.iconPosition": "Posición del icono",
+  "editor.marquee-notification-bar.separator": "Separador entre mensajes",
+  "editor.marquee-notification-bar.backgroundColor": "Color de fondo",
+  "editor.marquee-notification-bar.textColor": "Color del texto",
+  "editor.marquee-notification-bar.fontSize": "Tamaño de fuente",
+  "editor.marquee-notification-bar.speed": "Velocidad de animación",
+  "editor.marquee-notification-bar.pauseOnHover": "Pausar al pasar el mouse",
+  "editor.marquee-notification-bar.showMarquee": "Activar animación marquee"
 }
