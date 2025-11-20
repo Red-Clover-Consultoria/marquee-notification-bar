@@ -1,0 +1,48 @@
+{
+  "name": "@redcloverqa/marquee-notification-bar-widget",
+  "version": "0.0.1",
+  "description": "Marquee Notification Bar Widget for Koru App Manager and standalone websites",
+  "main": "dist/marquee-widget.js",
+  "module": "dist/marquee-widget.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run build:webpack && npm run build:types",
+    "build:webpack": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
+    "watch": "webpack --mode development --watch",
+    "clean": "rimraf dist",
+    "serve": "webpack serve --mode development --open",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "marquee",
+    "notification",
+    "banner",
+    "widget",
+    "koru",
+    "app-manager",
+    "vtex"
+  ],
+  "author": "Red Clover Consultoria",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "css-loader": "^6.8.1",
+    "rimraf": "^5.0.5",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Red-Clover-Consultoria/marquee-notification-bar.git"
+  }
+}

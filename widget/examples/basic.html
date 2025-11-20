@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marquee Widget - Basic Example</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .product-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      transition: box-shadow 0.3s;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+      background: #f5f5f5;
+    }
+
+    .product-card h3 {
+      margin: 15px 0 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .product-card .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .product-card button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .product-card button:hover {
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Marquee Widget Script -->
+  <script
+    src="../dist/marquee-widget.js"
+    data-messages='[
+      {"text":"🎉 3 CUOTAS SIN INTERÉS desde $60.000","iconPosition":"left"},
+      {"text":"🚚 ENVÍO GRATIS en compras mayores a $80.000","iconPosition":"left"},
+      {"text":"💰 20% OFF en segunda unidad","iconPosition":"left"}
+    ]'
+    data-separator="•"
+    data-background-color="#000000"
+    data-text-color="#ffffff"
+    data-font-size="14px"
+    data-speed="normal"
+    data-position="top"
+  ></script>
+
+  <!-- Page Content -->
+  <div class="content">
+    <h1>Welcome to Our Store</h1>
+    <p>Browse our collection of amazing products with great deals and free shipping!</p>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <div style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+          <span style="font-size: 48px;">📱</span>
+        </div>
+        <h3>Product 1</h3>
+        <div class="price">$120.00</div>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <div style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+          <span style="font-size: 48px;">⌚</span>
+        </div>
+        <h3>Product 2</h3>
+        <div class="price">$85.00</div>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <div style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+          <span style="font-size: 48px;">🎧</span>
+        </div>
+        <h3>Product 3</h3>
+        <div class="price">$65.00</div>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <div style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+          <span style="font-size: 48px;">💻</span>
+        </div>
+        <h3>Product 4</h3>
+        <div class="price">$240.00</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
