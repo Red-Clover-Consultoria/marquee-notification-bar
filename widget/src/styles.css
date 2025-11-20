@@ -1,0 +1,139 @@
+/**
+ * Styles for Marquee Notification Bar Widget
+ * Adapted from VTEX IO version for standalone usage
+ */
+
+.marquee-notification-bar {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.marquee-notification-bar__wrapper {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-notification-bar__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  animation-name: marquee-scroll;
+  animation-duration: 25s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+  min-width: 100%;
+}
+
+.marquee-notification-bar__content:first-child {
+  padding-left: 100%;
+}
+
+.marquee-notification-bar__message {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.marquee-notification-bar__text {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.marquee-notification-bar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  max-width: 24px;
+  max-height: 24px;
+  object-fit: contain;
+}
+
+.marquee-notification-bar__separator {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+/* Marquee animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Static mode - no animation */
+.marquee-notification-bar__wrapper--static .marquee-notification-bar__content {
+  animation: none !important;
+  padding: 0;
+  justify-content: center;
+  width: 100%;
+  min-width: auto;
+}
+
+/* Paused state */
+.marquee-notification-bar__content--paused {
+  animation-play-state: paused !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .marquee-notification-bar {
+    padding: 8px 0;
+  }
+
+  .marquee-notification-bar__message {
+    gap: 6px;
+  }
+
+  .marquee-notification-bar__text {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+  }
+
+  .marquee-notification-bar__icon {
+    max-width: 18px;
+    max-height: 18px;
+    font-size: 1em;
+  }
+
+  .marquee-notification-bar__separator {
+    padding: 0 1rem;
+    font-size: 14px;
+  }
+
+  .marquee-notification-bar__content {
+    gap: 6px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .marquee-notification-bar {
+    border-bottom-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-notification-bar__content {
+    animation: none !important;
+    padding: 0;
+    justify-content: center;
+    width: 100%;
+    min-width: auto;
+  }
+}
