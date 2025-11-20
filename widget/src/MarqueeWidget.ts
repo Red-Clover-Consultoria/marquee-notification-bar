@@ -188,23 +188,48 @@ class MarqueeNotificationBarWidget extends KoruWidget {
    * Get or create the main container element
    */
   private getOrCreateContainer(): HTMLElement {
-    let container = document.getElementById(this.config.containerId!)
+    let container = document.getElementById(this.widgetConfig.containerId!)
 
     if (!container) {
       container = this.createElement('div', {
-        id: this.config.containerId,
+        id: this.widgetConfig.containerId,
         className: 'marquee-notification-bar'
       })
 
+      // Apply positioning styles
+      this.applyPositionStyles(container)
+
       // Insert at the position specified
-      if (this.config.position === 'top') {
+      if (this.widgetConfig.position === 'top') {
         document.body.insertBefore(container, document.body.firstChild)
       } else {
         document.body.appendChild(container)
       }
+    } else {
+      // Container exists, apply positioning styles
+      this.applyPositionStyles(container)
     }
 
     return container
+  }
+
+  /**
+   * Apply positioning styles to container
+   */
+  private applyPositionStyles(container: HTMLElement): void {
+    // Use fixed positioning to ensure widget stays on top
+    container.style.position = 'fixed'
+    container.style.left = '0'
+    container.style.right = '0'
+    container.style.zIndex = '9999'
+
+    if (this.widgetConfig.position === 'top') {
+      container.style.top = '0'
+      container.style.bottom = 'auto'
+    } else {
+      container.style.top = 'auto'
+      container.style.bottom = '0'
+    }
   }
 
   /**
