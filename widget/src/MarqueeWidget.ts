@@ -49,11 +49,14 @@ class MarqueeNotificationBarWidget extends KoruWidget {
   async onInit(config: MarqueeWidgetConfig): Promise<void> {
     this.log('Marquee Notification Bar Widget initialized', config)
 
+    // Parse individual message fields from Koru into messages array
+    const parsedConfig = this.parseKoruConfig(config)
+
     // Merge config from Koru with defaults
     this.widgetConfig = {
       containerId: 'marquee-notification-bar',
       position: 'top',
-      ...config
+      ...parsedConfig
     }
 
     // Update core with new config
@@ -61,6 +64,43 @@ class MarqueeNotificationBarWidget extends KoruWidget {
 
     if (!this.core.shouldRender()) {
       this.log('No messages to display, widget will not render')
+    }
+  }
+
+  /**
+   * Parse Koru config with individual message fields into messages array
+   * Supports both formats: individual fields (message1_text, etc.) and direct messages array
+   */
+  private parseKoruConfig(config: any): MarqueeWidgetConfig {
+    // If messages array is already provided, use it directly (backward compatibility)
+    if (config.messages && Array.isArray(config.messages)) {
+      return config as MarqueeWidgetConfig
+    }
+
+    // Parse individual message fields (message1_text, message2_text, etc.)
+    const messages: any[] = []
+
+    for (let i = 1; i <= 10; i++) {
+      const textKey = `message${i}_text`
+      const iconKey = `message${i}_icon`
+      const iconPositionKey = `message${i}_iconPosition`
+
+      const text = config[textKey]
+
+      // Only add message if text is provided and not empty
+      if (text && text.trim()) {
+        messages.push({
+          text: text.trim(),
+          icon: config[iconKey] || undefined,
+          iconPosition: config[iconPositionKey] || 'left'
+        })
+      }
+    }
+
+    // Return config with parsed messages array
+    return {
+      ...config,
+      messages
     }
   }
 
