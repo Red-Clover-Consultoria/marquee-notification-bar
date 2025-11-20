@@ -10,27 +10,24 @@ Standalone widget version of the Marquee Notification Bar for Koru App Manager a
 npm install @redcloverqa/marquee-notification-bar-widget
 ```
 
-### Via CDN (Script Tag)
+### Via CDN (Script Tag) - Koru Integration
 
 ```html
 <script
   src="https://cdn.example.com/marquee-widget.min.js"
-  data-messages='[{"text":"Free shipping on orders over $50","icon":"🚚","iconPosition":"left"}]'
-  data-separator="•"
-  data-background-color="#000000"
-  data-text-color="#ffffff"
-  data-font-size="14px"
-  data-speed="normal"
-  data-pause-on-hover="true"
-  data-show-marquee="true"
+  data-website-id="your-website-id"
+  data-app-id="marquee-notification-bar"
+  data-app-manager-url="https://app-manager.redclover.com.ar"
 ></script>
 ```
 
+**Note:** Configuration (messages, colors, etc.) is managed through the Koru App Manager dashboard, not via data attributes.
+
 ## Usage
 
-### Automatic Initialization (Script Tag)
+### Automatic Initialization with Koru SDK
 
-The widget will automatically initialize when loaded via script tag with data attributes:
+The widget automatically initializes when loaded via script tag with Koru credentials:
 
 ```html
 <!DOCTYPE html>
@@ -43,17 +40,9 @@ The widget will automatically initialize when loaded via script tag with data at
 <body>
   <script
     src="./dist/marquee-widget.min.js"
-    data-messages='[
-      {"text":"3 CUOTAS SIN INTERÉS desde $60.000","icon":"🎉","iconPosition":"left"},
-      {"text":"ENVÍO GRATIS en compras mayores a $80.000","icon":"🚚","iconPosition":"left"},
-      {"text":"20% OFF en segunda unidad","icon":"💰","iconPosition":"left"}
-    ]'
-    data-separator="•"
-    data-background-color="#000000"
-    data-text-color="#ffffff"
-    data-font-size="14px"
-    data-speed="normal"
-    data-position="top"
+    data-website-id="your-website-id"
+    data-app-id="marquee-notification-bar"
+    data-app-manager-url="https://app-manager.redclover.com.ar"
   ></script>
 
   <!-- Your page content -->
@@ -62,66 +51,51 @@ The widget will automatically initialize when loaded via script tag with data at
 </html>
 ```
 
-### Programmatic Usage (JavaScript)
+**Configuration is managed through Koru App Manager:**
+1. Log into your Koru dashboard
+2. Configure messages, colors, speed, and other settings
+3. The widget automatically fetches and applies the configuration
+
+### Programmatic Usage (Advanced)
+
+For advanced use cases, you can access the widget instance:
 
 ```javascript
-import { createWidget } from '@redcloverqa/marquee-notification-bar-widget'
+import { MarqueeNotificationBarWidget } from '@redcloverqa/marquee-notification-bar-widget'
 
-// Create widget instance
-const widget = createWidget({
-  containerId: 'my-marquee',
-  position: 'top',
-  messages: [
-    {
-      text: 'Free shipping on orders over $50',
-      icon: '🚚',
-      iconPosition: 'left'
-    },
-    {
-      text: 'New arrivals every week',
-      icon: '✨',
-      iconPosition: 'left'
-    }
-  ],
-  separator: '|',
-  backgroundColor: '#f5f5f5',
-  textColor: '#333333',
-  fontSize: '14px',
-  speed: 'normal',
-  pauseOnHover: true,
-  showMarquee: true
-})
+// Create and start widget instance
+const widget = new MarqueeNotificationBarWidget()
+await widget.start()
 
-// Initialize and render
-await widget.onInit()
-widget.onRender()
+// Control widget lifecycle
+await widget.stop()   // Stop and cleanup
+await widget.reload() // Refresh configuration from Koru
 
-// Update configuration later
-widget.onConfigUpdate({
-  backgroundColor: '#ff0000',
-  textColor: '#ffffff'
-})
-
-// Cleanup when done
-widget.onDestroy()
+// Access widget state
+console.log(widget.isRunning())
 ```
+
+**Note:** Configuration is always fetched from Koru App Manager, not passed programmatically.
 
 ## Configuration Options
 
-### Data Attributes (Script Tag)
+### Required Data Attributes (Koru Integration)
 
-| Attribute | Type | Description | Default |
-|-----------|------|-------------|---------|
-| `data-messages` | JSON | Array of message objects | `[]` |
-| `data-separator` | string | Character to separate messages | `"•"` |
-| `data-background-color` | string | Hex color for background | `"#f5f5f5"` |
-| `data-text-color` | string | Hex color for text | `"#333333"` |
-| `data-font-size` | string | Font size (12px, 14px, 16px, 18px) | `"14px"` |
-| `data-speed` | string | Animation speed (slow, normal, fast) | `"normal"` |
-| `data-pause-on-hover` | boolean | Pause on mouse hover | `true` |
-| `data-show-marquee` | boolean | Enable marquee animation | `true` |
-| `data-container-id` | string | Container element ID | `"marquee-notification-bar"` |
-| `data-position` | string | Position (top, bottom) | `"top"` |
+| Attribute | Type | Description | Required |
+|-----------|------|-------------|----------|
+| `data-website-id` | string | Your Koru website ID | ✅ Yes |
+| `data-app-id` | string | App identifier: `marquee-notification-bar` | ✅ Yes |
+| `data-app-manager-url` | string | Koru App Manager URL | ✅ Yes |
+
+### Configuration (via Koru Dashboard)
+
+All widget configuration is managed through the Koru App Manager dashboard:
+
+- **Messages**: Text, icons, and icon position
+- **Styling**: Background color, text color, font size
+- **Animation**: Speed (slow, normal, fast), pause on hover
+- **Behavior**: Enable/disable marquee, position (top/bottom)
+- **Container**: Custom container ID
 
 ### Message Object Structure
 

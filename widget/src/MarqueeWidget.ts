@@ -3,6 +3,7 @@
  * Extends KoruWidget to provide marquee notification functionality
  */
 
+import { KoruWidget } from '@redclover/koru-sdk'
 import { MarqueeCore } from './core/MarqueeCore'
 import { MarqueeConfig } from './core/types'
 
@@ -12,57 +13,52 @@ import './styles.css'
 /**
  * Widget configuration interface extending base Koru config
  */
-interface MarqueeWidgetConfig extends MarqueeConfig {
+export interface MarqueeWidgetConfig extends MarqueeConfig {
   // Add any Koru-specific config here if needed
   containerId?: string
   position?: 'top' | 'bottom'
 }
 
 /**
- * KoruWidget base class interface (from @redclover/koru-sdk)
- * Defined here to avoid build-time dependency
- */
-interface KoruWidgetBase {
-  onInit(): Promise<void> | void
-  onRender(): void
-  onConfigUpdate?(config: any): void
-  onDestroy(): void
-  createElement<K extends keyof HTMLElementTagNameMap>(
-    tag: K,
-    props?: Partial<HTMLElementTagNameMap[K]>
-  ): HTMLElementTagNameMap[K]
-  isMobile(): boolean
-  track?(event: string, data?: any): void
-  log?(message: string, ...args: any[]): void
-}
-
-/**
  * Marquee Notification Bar Widget
  * Integrates with Koru App Manager using the Widget SDK
  */
-class MarqueeNotificationBarWidget implements KoruWidgetBase {
-  private core: MarqueeCore
-  private container: HTMLElement | null = null
-  private wrapper: HTMLElement | null = null
-  private config: MarqueeWidgetConfig
+class MarqueeNotificationBarWidget extends KoruWidget {
+  protected core: MarqueeCore
+  protected wrapper: HTMLElement | null = null
+  protected widgetConfig: MarqueeWidgetConfig
 
-  constructor(config: MarqueeWidgetConfig = {}) {
-    this.config = {
+  constructor() {
+    super({
+      name: 'marquee-notification-bar',
+      version: '0.0.3'
+    })
+
+    // Initialize with default config
+    this.widgetConfig = {
       containerId: 'marquee-notification-bar',
-      position: 'top',
-      ...config
+      position: 'top'
     }
-    this.core = new MarqueeCore(config)
+    this.core = new MarqueeCore(this.widgetConfig)
   }
 
   /**
    * Initialize widget after authorization
+   * @param config Configuration from Koru App Manager
    */
-  async onInit(): Promise<void> {
-    this.log('Marquee Notification Bar Widget initialized')
+  async onInit(config: MarqueeWidgetConfig): Promise<void> {
+    this.log('Marquee Notification Bar Widget initialized', config)
 
-    // Fetch configuration from Koru if needed
-    // The config should be passed via constructor from Koru
+    // Merge config from Koru with defaults
+    this.widgetConfig = {
+      containerId: 'marquee-notification-bar',
+      position: 'top',
+      ...config
+    }
+
+    // Update core with new config
+    this.core.updateConfig(this.widgetConfig)
+
     if (!this.core.shouldRender()) {
       this.log('No messages to display, widget will not render')
     }
@@ -70,8 +66,14 @@ class MarqueeNotificationBarWidget implements KoruWidgetBase {
 
   /**
    * Render the widget UI
+   * @param config Configuration from Koru App Manager
    */
-  onRender(): void {
+  async onRender(config: MarqueeWidgetConfig): Promise<void> {
+    // Update config if provided
+    if (config) {
+      this.widgetConfig = { ...this.widgetConfig, ...config }
+      this.core.updateConfig(this.widgetConfig)
+    }
     try {
       if (!this.core.shouldRender()) {
         this.log('Skipping render: no messages configured')
@@ -109,23 +111,24 @@ class MarqueeNotificationBarWidget implements KoruWidgetBase {
 
   /**
    * Update configuration without full re-render
+   * @param config Partial configuration to update
    */
-  onConfigUpdate(config: Partial<MarqueeWidgetConfig>): void {
+  async onConfigUpdate(config: Partial<MarqueeWidgetConfig>): Promise<void> {
     this.log('Updating widget configuration', config)
 
-    this.config = { ...this.config, ...config }
+    this.widgetConfig = { ...this.widgetConfig, ...config }
     this.core.updateConfig(config)
 
     // For now, do a full re-render
     // Could be optimized to only update changed parts
-    this.onDestroy()
-    this.onRender()
+    await this.onDestroy()
+    await this.onRender(this.widgetConfig)
   }
 
   /**
    * Cleanup and destroy widget
    */
-  onDestroy(): void {
+  async onDestroy(): Promise<void> {
     this.log('Destroying widget')
 
     // Remove event listeners
@@ -300,53 +303,8 @@ class MarqueeNotificationBarWidget implements KoruWidgetBase {
       </div>
     `
   }
-
-  /**
-   * Create a DOM element with props (SDK helper)
-   */
-  createElement<K extends keyof HTMLElementTagNameMap>(
-    tag: K,
-    props?: Partial<HTMLElementTagNameMap[K]>
-  ): HTMLElementTagNameMap[K] {
-    const element = document.createElement(tag)
-
-    if (props) {
-      Object.assign(element, props)
-    }
-
-    return element
-  }
-
-  /**
-   * Check if device is mobile (SDK helper)
-   */
-  isMobile(): boolean {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-  }
-
-  /**
-   * Track analytics events (SDK helper)
-   */
-  track(event: string, data?: any): void {
-    // This would be implemented by the actual Koru SDK
-    // For now, just log
-    this.log(`Track event: ${event}`, data)
-  }
-
-  /**
-   * Log debug messages (SDK helper)
-   */
-  log(message: string, ...args: any[]): void {
-    // Only log in development (webpack will replace NODE_ENV)
-    if (typeof NODE_ENV !== 'undefined' && NODE_ENV === 'development') {
-      console.log(`[MarqueeWidget] ${message}`, ...args)
-    }
-  }
 }
 
 // Export for use in Koru App Manager
 export default MarqueeNotificationBarWidget
 export { MarqueeNotificationBarWidget }
-export type { MarqueeWidgetConfig }

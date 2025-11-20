@@ -389,108 +389,40 @@
     </div>
   </div>
 
-  <script src="../dist/marquee-widget.js"></script>
+  <!-- Marquee Widget - Koru Integration -->
+  <script
+    src="../dist/marquee-widget.js"
+    data-website-id="demo-website"
+    data-app-id="marquee-notification-bar"
+    data-app-manager-url="https://app-manager.redclover.com.ar"
+  ></script>
   <script>
-    let widgetInstance = null
+    /**
+     * Demo de integración con Koru App Manager
+     *
+     * NOTA: Este ejemplo requiere configuración válida en Koru App Manager.
+     * La configuración (mensajes, colores, etc.) se obtiene automáticamente
+     * desde el dashboard de Koru, NO desde estos controles HTML.
+     *
+     * Los controles en esta página son solo demostrativos y NO afectan
+     * el widget real que se obtiene desde Koru.
+     */
 
-    const defaultMessages = [
-      { text: '🎉 3 CUOTAS SIN INTERÉS desde $60.000', iconPosition: 'left' },
-      { text: '🚚 ENVÍO GRATIS en compras mayores a $80.000', iconPosition: 'left' },
-      { text: '💰 20% OFF en segunda unidad', iconPosition: 'left' }
-    ]
+    console.log('Widget inicializado automáticamente por Koru SDK')
+    console.log('Configuración obtenida desde Koru App Manager')
 
-    function getConfig() {
-      return {
-        containerId: 'marquee-notification-bar',
-        position: 'top',
-        messages: defaultMessages,
-        separator: document.getElementById('separator').value,
-        backgroundColor: document.getElementById('bgColor').value,
-        textColor: document.getElementById('textColor').value,
-        fontSize: document.getElementById('fontSize').value,
-        speed: document.getElementById('speed').value,
-        pauseOnHover: document.getElementById('pauseOnHover').checked,
-        showMarquee: document.getElementById('showMarquee').checked
-      }
-    }
+    // Deshabilitar controles (solo demostrativos)
+    document.addEventListener('DOMContentLoaded', () => {
+      const controls = document.querySelectorAll('input, select, button')
+      controls.forEach(control => {
+        control.disabled = true
+        control.title = 'Configuración manejada por Koru App Manager'
+      })
 
-    async function createWidgetInstance() {
-      if (widgetInstance) {
-        return
-      }
-
-      const config = getConfig()
-      widgetInstance = new MarqueeNotificationBarWidget(config)
-
-      await widgetInstance.onInit()
-      widgetInstance.onRender()
-
-      updateUIState(true)
-      updateFormInputs()
-
-      console.log('Widget created:', config)
-    }
-
-    function updateFormInputs() {
-      if (!widgetInstance) return
-
-      const config = getConfig()
-      document.getElementById('bgColor').value = config.backgroundColor || '#000000'
-      document.getElementById('textColor').value = config.textColor || '#ffffff'
-      document.getElementById('fontSize').value = config.fontSize || '14px'
-      document.getElementById('speed').value = config.speed || 'normal'
-      document.getElementById('separator').value = config.separator || '•'
-      document.getElementById('showMarquee').checked = config.showMarquee !== false
-      document.getElementById('pauseOnHover').checked = config.pauseOnHover !== false
-    }
-
-    function autoUpdateWidget() {
-      if (!widgetInstance) {
-        return
-      }
-
-      const config = getConfig()
-      widgetInstance.onConfigUpdate(config)
-      console.log('Widget updated:', config)
-    }
-
-    function destroyWidget() {
-      if (!widgetInstance) {
-        return
-      }
-
-      widgetInstance.onDestroy()
-      widgetInstance = null
-      updateUIState(false)
-      console.log('Widget destroyed')
-    }
-
-    function updateUIState(active) {
-      const createBtn = document.getElementById('createBtn')
-      const destroyBtn = document.getElementById('destroyBtn')
+      // Mostrar mensaje informativo
       const statusBadge = document.getElementById('statusBadge')
-
-      if (active) {
-        createBtn.disabled = true
-        destroyBtn.disabled = false
-        statusBadge.textContent = 'Active'
-        statusBadge.classList.add('active')
-      } else {
-        createBtn.disabled = false
-        destroyBtn.disabled = true
-        statusBadge.textContent = 'Inactive'
-        statusBadge.classList.remove('active')
-      }
-    }
-
-    // Initialize
-    updateUIState(false)
-
-    // Auto-create widget on load
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        createWidgetInstance()
-      }, 500)
+      statusBadge.textContent = 'Manejado por Koru'
+      statusBadge.classList.add('active')
     })
   </script>
 </body>
