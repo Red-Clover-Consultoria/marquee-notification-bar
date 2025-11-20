@@ -16,6 +16,7 @@
     "watch": "webpack --mode development --watch",
     "clean": "rimraf dist",
     "serve": "webpack serve --mode development --open",
+    "deploy:gh": "npm run build && gh-pages -d .",
     "test": "echo \"No tests yet\" && exit 0"
   },
   "keywords": [
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@types/node": "^20.10.0",
     "css-loader": "^6.8.1",
+    "gh-pages": "^6.1.0",
     "rimraf": "^5.0.5",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.5.1",
