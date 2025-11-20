@@ -1,6 +1,6 @@
 {
   "name": "@redcloverqa/marquee-notification-bar-widget",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Marquee Notification Bar Widget for Koru App Manager and standalone websites",
   "main": "dist/marquee-widget.js",
   "module": "dist/marquee-widget.esm.js",
@@ -42,7 +42,9 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@redclover/koru-sdk": "^1.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Red-Clover-Consultoria/marquee-notification-bar.git"
