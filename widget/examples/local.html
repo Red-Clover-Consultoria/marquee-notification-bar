@@ -83,23 +83,36 @@
 </head>
 <body>
   <!-- Marquee Widget Script -->
-  <script
-    src="../dist/marquee-widget.js"
-    data-website-id="demo-website"
-    data-app-id="marquee-notification-bar"
-    data-app-manager-url="https://app-manager.redclover.com.ar"
-    data-messages='[
-      {"text":"🎉 3 CUOTAS SIN INTERÉS desde $60.000","iconPosition":"left"},
-      {"text":"🚚 ENVÍO GRATIS en compras mayores a $80.000","iconPosition":"left"},
-      {"text":"💰 20% OFF en segunda unidad","iconPosition":"left"}
-    ]'
-    data-separator="•"
-    data-background-color="#000000"
-    data-text-color="#ffffff"
-    data-font-size="14px"
-    data-speed="normal"
-    data-position="top"
-  ></script>
+  <!-- Widget container -->
+  <div id="marquee-notification-bar"></div>
+
+  <!-- Load widget script -->
+  <script src="../dist/marquee-widget.js"></script>
+
+  <!-- Manual initialization for local testing -->
+  <script>
+    // Prevent auto-initialization by stopping it immediately
+    // Then manually initialize with local config
+    const widget = new MarqueeNotificationBarWidget();
+
+    const config = {
+      enabled: true,
+      messages: [
+        {text: "🎉 3 CUOTAS SIN INTERÉS desde $60.000", iconPosition: "left"},
+        {text: "🚚 ENVÍO GRATIS en compras mayores a $80.000", iconPosition: "left"},
+        {text: "💰 20% OFF en segunda unidad", iconPosition: "left"}
+      ],
+      separator: "•",
+      backgroundColor: "#000000",
+      textColor: "#ffffff",
+      fontSize: "14px",
+      speed: "normal",
+      position: "top"
+    };
+
+    // Initialize manually for local testing
+    widget.onInit(config).then(() => widget.onRender(config));
+  </script>
 
   <!-- Page Content -->
   <div class="content">
