@@ -14,6 +14,7 @@ export interface Message {
 }
 
 export interface MarqueeConfig {
+  enabled?: boolean
   messages?: Message[]
   separator?: string
   backgroundColor?: string
@@ -25,6 +26,7 @@ export interface MarqueeConfig {
 }
 
 export interface MarqueeDefaults {
+  enabled: boolean
   messages: Message[]
   separator: string
   backgroundColor: string

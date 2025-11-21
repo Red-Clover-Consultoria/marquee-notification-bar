@@ -9,6 +9,7 @@ export class MarqueeCore {
   private config: Required<MarqueeConfig>
 
   private static readonly DEFAULT_CONFIG: MarqueeDefaults = {
+    enabled: true,
     messages: [],
     separator: '•',
     backgroundColor: '#f5f5f5',
