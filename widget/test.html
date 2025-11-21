@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marquee Notification Bar - Test Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+      padding: 80px 20px 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 60px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #667eea;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 40px;
+    }
+
+    .info-box {
+      background: #f7fafc;
+      border-left: 4px solid #667eea;
+      padding: 24px;
+      border-radius: 8px;
+      margin: 30px 0;
+    }
+
+    .info-box h3 {
+      color: #667eea;
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+    }
+
+    .info-box p {
+      line-height: 1.8;
+      color: #4a5568;
+      margin-bottom: 12px;
+    }
+
+    .info-box code {
+      background: #edf2f7;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #d53f8c;
+    }
+
+    .info-box ul {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .info-box li {
+      margin: 8px 0;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    .warning-box {
+      background: #fffaf0;
+      border-left: 4px solid #f6ad55;
+      padding: 24px;
+      border-radius: 8px;
+      margin: 30px 0;
+    }
+
+    .warning-box h3 {
+      color: #c05621;
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+    }
+
+    .warning-box p {
+      color: #744210;
+      line-height: 1.8;
+    }
+
+    .success-box {
+      background: #f0fff4;
+      border-left: 4px solid #48bb78;
+      padding: 24px;
+      border-radius: 8px;
+      margin: 30px 0;
+    }
+
+    .success-box h3 {
+      color: #22543d;
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+    }
+
+    .success-box p {
+      color: #276749;
+      line-height: 1.8;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .product-card {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
+      border-color: #667eea;
+    }
+
+    .product-icon {
+      font-size: 64px;
+      margin: 20px 0;
+    }
+
+    .product-card h3 {
+      font-size: 1.25rem;
+      color: #2d3748;
+      margin: 16px 0;
+    }
+
+    .product-price {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: #667eea;
+      margin: 12px 0;
+    }
+
+    .product-card button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 16px;
+    }
+
+    .product-card button:hover {
+      background: #5a67d8;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 2px solid #e2e8f0;
+      color: #718096;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 60px 10px 20px;
+      }
+
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    🧪 WIDGET TEST CONFIGURATION
+
+    This page tests the Marquee Notification Bar widget with Koru App Manager.
+
+    IMPORTANT: Before testing, ensure:
+    1. Run `npm run build` to compile the widget
+    2. Koru backend is running (default: http://localhost:3000)
+    3. Widget is configured in Koru dashboard with test credentials below
+  -->
+  <script
+    src="./dist/marquee-widget.min.js"
+    data-website-id="test-website-001"
+    data-app-id="marquee-notification-bar"
+    data-app-manager-url="http://localhost:3000"
+  ></script>
+
+  <div class="container">
+    <div style="text-align: center;">
+      <span class="badge">🧪 Test Environment</span>
+    </div>
+
+    <h1>📣 Marquee Notification Bar</h1>
+    <p style="text-align: center; font-size: 1.1rem; color: #718096; margin-bottom: 40px;">
+      Widget de notificaciones animadas para Koru App Manager
+    </p>
+
+    <div class="info-box">
+      <h3>📋 Test Configuration</h3>
+      <ul>
+        <li><strong>Widget URL:</strong> <code>./dist/marquee-widget.min.js</code></li>
+        <li><strong>Website ID:</strong> <code>test-website-001</code></li>
+        <li><strong>App ID:</strong> <code>marquee-notification-bar</code></li>
+        <li><strong>App Manager URL:</strong> <code>http://localhost:3000</code></li>
+      </ul>
+    </div>
+
+    <div class="warning-box">
+      <h3>⚙️ Setup Required</h3>
+      <p>
+        <strong>Paso 1:</strong> Ejecuta <code>npm run build</code> en la terminal para compilar el widget.
+      </p>
+      <p>
+        <strong>Paso 2:</strong> Asegúrate de que el backend de Koru esté corriendo en <code>http://localhost:3000</code>.
+      </p>
+      <p>
+        <strong>Paso 3:</strong> Configura los mensajes desde el dashboard de Koru usando las credenciales de arriba.
+      </p>
+    </div>
+
+    <div class="success-box">
+      <h3>✅ Testing Checklist</h3>
+      <p>Verifica que el widget funcione correctamente:</p>
+      <ul>
+        <li>El widget se renderiza en la parte superior o inferior de la página</li>
+        <li>Los mensajes se muestran con la configuración de Koru</li>
+        <li>La animación de marquee funciona (si está habilitada)</li>
+        <li>Al pasar el mouse, la animación se pausa (si está configurado)</li>
+        <li>Los colores y estilos se aplican correctamente</li>
+        <li>No hay errores en la consola del navegador (F12)</li>
+        <li>El widget funciona en modo responsive/mobile</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3>🐛 Debug Mode</h3>
+      <p>
+        Para activar logs detallados en la consola, agrega <code>?debug</code> a la URL:
+      </p>
+      <p>
+        <code>http://localhost:8080/test.html?debug</code>
+      </p>
+      <p style="margin-top: 12px;">
+        También se activa automáticamente en <code>localhost</code> y <code>127.0.0.1</code>.
+      </p>
+    </div>
+
+    <h2 style="text-align: center; margin: 60px 0 30px; color: #2d3748;">
+      🛍️ Productos de Ejemplo
+    </h2>
+    <p style="text-align: center; color: #718096; margin-bottom: 40px;">
+      Scroll para verificar que el widget permanece fijo
+    </p>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-icon">📱</div>
+        <h3>Smartphone Pro Max</h3>
+        <div class="product-price">$150.000</div>
+        <button onclick="alert('Producto agregado al carrito!')">Agregar al Carrito</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon">⌚</div>
+        <h3>Smartwatch Ultra</h3>
+        <div class="product-price">$95.000</div>
+        <button onclick="alert('Producto agregado al carrito!')">Agregar al Carrito</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon">🎧</div>
+        <h3>Auriculares Premium</h3>
+        <div class="product-price">$75.000</div>
+        <button onclick="alert('Producto agregado al carrito!')">Agregar al Carrito</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon">💻</div>
+        <h3>Laptop Gaming Pro</h3>
+        <div class="product-price">$280.000</div>
+        <button onclick="alert('Producto agregado al carrito!')">Agregar al Carrito</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon">📷</div>
+        <h3>Cámara Digital 4K</h3>
+        <div class="product-price">$185.000</div>
+        <button onclick="alert('Producto agregado al carrito!')">Agregar al Carrito</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon">🎮</div>
+        <h3>Consola Next Gen</h3>
+        <div class="product-price">$220.000</div>
+        <button onclick="alert('Producto agregado al carrito!')">Agregar al Carrito</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        <strong>Marquee Notification Bar Widget</strong> v0.0.3
+      </p>
+      <p style="margin-top: 8px;">
+        Powered by <strong>Koru App Manager</strong>
+      </p>
+      <p style="margin-top: 16px; font-size: 0.9rem;">
+        📖 Ver <a href="./README.md" style="color: #667eea;">README.md</a> y
+        <a href="./DEVELOPMENT.md" style="color: #667eea;">DEVELOPMENT.md</a> para más información
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Log de debugging adicional
+    console.log('%c🧪 Test Page Loaded', 'color: #667eea; font-size: 16px; font-weight: bold;');
+    console.log('Widget configuration:', {
+      websiteId: 'test-website-001',
+      appId: 'marquee-notification-bar',
+      appManagerUrl: 'http://localhost:3000'
+    });
+  </script>
+</body>
+</html>
