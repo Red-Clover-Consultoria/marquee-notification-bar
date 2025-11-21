@@ -51,12 +51,12 @@ module.exports = (env, argv) => {
 
     devServer: {
       static: {
-        directory: path.join(__dirname, 'dist')
+        directory: path.join(__dirname, '.')  // Serve from root to access test.html
       },
       compress: true,
       port: 8080,
       hot: true,
-      open: true
+      open: ['/test.html']  // Open test.html by default
     },
 
     // Generate additional builds
