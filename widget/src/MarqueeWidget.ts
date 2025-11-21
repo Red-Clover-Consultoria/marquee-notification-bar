@@ -203,10 +203,19 @@ class MarqueeNotificationBarWidget extends KoruWidget {
       }
     }
 
-    // Return config with parsed messages array (remove old messages field)
+    // Return config with parsed messages array (remove old messages field and empty strings)
     const { messages: _oldMessages, ...restConfig } = config
+
+    // Filter out empty string values to preserve defaults
+    const cleanConfig: any = {}
+    for (const [key, value] of Object.entries(restConfig)) {
+      if (value !== '' && value !== null && value !== undefined) {
+        cleanConfig[key] = value
+      }
+    }
+
     return {
-      ...restConfig,
+      ...cleanConfig,
       messages
     }
   }
