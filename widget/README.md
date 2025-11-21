@@ -89,13 +89,31 @@ console.log(widget.isRunning())
 
 ### Configuration (via Koru Dashboard)
 
-All widget configuration is managed through the Koru App Manager dashboard:
+All widget configuration is managed through the Koru App Manager dashboard. The configuration interface is automatically generated from `config-schema.json`.
 
-- **Messages**: Text, icons, and icon position
-- **Styling**: Background color, text color, font size
-- **Animation**: Speed (slow, normal, fast), pause on hover
-- **Behavior**: Enable/disable marquee, position (top/bottom)
-- **Container**: Custom container ID
+**Configuration Schema**: See [`config-schema.json`](./config-schema.json) for complete field definitions, validations, and UI hints.
+
+**Available Configuration Options:**
+
+- **Messages (1-10)**: Up to 10 customizable messages with:
+  - `messageN_text`: Message content (required for message 1)
+  - `messageN_icon`: Emoji or image URL (optional)
+  - `messageN_iconPosition`: Icon placement - `left` or `right` (default: `left`)
+
+- **Styling**:
+  - `backgroundColor`: Hex color for background (e.g., `#000000`)
+  - `textColor`: Hex color for text (e.g., `#FFFFFF`)
+  - `fontSize`: Text size - `12px`, `14px`, `16px`, or `18px`
+  - `separator`: Character between messages (default: `•`)
+
+- **Animation**:
+  - `speed`: Scroll speed - `slow`, `normal`, or `fast`
+  - `pauseOnHover`: Pause animation on mouse hover (default: `true`)
+  - `showMarquee`: Enable/disable scroll animation (default: `true`)
+
+- **Behavior**:
+  - `position`: Widget placement - `top` or `bottom` (default: `top`)
+  - `containerId`: Custom container ID for advanced usage (default: `marquee-notification-bar`)
 
 ### Message Object Structure
 
@@ -109,7 +127,9 @@ All widget configuration is managed through the Koru App Manager dashboard:
 
 ## Development
 
-### Build from Source
+For detailed development instructions, architecture documentation, and best practices, see **[DEVELOPMENT.md](./DEVELOPMENT.md)**.
+
+### Quick Start
 
 ```bash
 # Install dependencies
@@ -124,6 +144,13 @@ npm run build
 # Serve with hot reload
 npm run serve
 ```
+
+### Key Development Files
+
+- **`config-schema.json`**: Configuration schema for Koru App Manager UI
+- **`src/MarqueeWidget.ts`**: Main widget class with Koru SDK integration
+- **`src/core/MarqueeCore.ts`**: Business logic independent of Koru
+- **`DEVELOPMENT.md`**: Complete development guide
 
 ### Build Output
 
@@ -156,10 +183,39 @@ widget/
 
 This widget is designed to work seamlessly with Koru App Manager. To integrate:
 
-1. Upload the built widget to your CDN
-2. Configure the app in Koru dashboard
-3. Add configuration via Koru's admin interface
-4. The widget will automatically load on configured websites
+1. **Upload widget and schema to your CDN:**
+   ```bash
+   npm run build
+   # Upload dist/marquee-widget.min.js to CDN
+   # Upload config-schema.json to CDN
+   ```
+
+2. **Configure the app in Koru dashboard:**
+   - App ID: `marquee-notification-bar`
+   - Widget URL: `https://your-cdn.com/marquee-widget.min.js`
+   - Config Schema URL: `https://your-cdn.com/config-schema.json`
+
+3. **Configure messages and styling** via Koru's admin interface
+
+4. **Add to website** - The widget will automatically load with the script tag
+
+### Configuration Validation
+
+The widget includes comprehensive validation (see `MarqueeWidget.ts:90-178`):
+
+- ✅ Validates at least one message is configured
+- ✅ Checks all message text is non-empty
+- ✅ Validates icon positions (`left` or `right`)
+- ✅ Validates color formats (hex colors)
+- ✅ Validates enum values (fontSize, speed, position)
+- ❌ Throws descriptive errors for invalid configurations
+
+Example error messages:
+```
+Widget configuration error: At least one message is required. Please configure message1_text in Koru App Manager.
+Widget configuration error: backgroundColor must be a valid hex color (e.g., #000000)
+Widget configuration error: speed must be one of slow, normal, fast
+```
 
 ## Browser Support
 
@@ -170,12 +226,29 @@ This widget is designed to work seamlessly with Koru App Manager. To integrate:
 
 Requires ES2015+ support and modern DOM APIs.
 
-## Examples
+## Testing & Examples
 
-See the `examples/` directory for complete usage examples:
+### Testing with Koru
 
-- `basic.html` - Simple integration with script tag
-- `programmatic.html` - Interactive demo with real-time configuration controls
+**`test.html`** - Main test page for development with Koru App Manager:
+```bash
+# Build the widget
+npm run build
+
+# Open test.html in browser (requires Koru backend running)
+# http://localhost:8080/test.html
+```
+
+### Local Development
+
+**`examples/local.html`** - Test widget locally without Koru backend using data attributes:
+```html
+<script
+  src="./dist/marquee-widget.js"
+  data-messages='[{"text":"Test message","icon":"🚀"}]'
+  data-background-color="#0066cc"
+></script>
+```
 
 ## License
 

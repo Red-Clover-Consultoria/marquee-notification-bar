@@ -29,9 +29,23 @@ class MarqueeNotificationBarWidget extends KoruWidget {
   protected widgetConfig: MarqueeWidgetConfig
 
   constructor() {
+    // Detect debug mode from URL parameter or localhost
+    const isDebug =
+      new URLSearchParams(window.location.search).has('debug') ||
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1'
+
     super({
       name: 'marquee-notification-bar',
-      version: '0.0.3'
+      version: '0.0.3',
+      options: {
+        cache: true, // Enable caching for better performance
+        cacheDuration: 3600, // Cache for 1 hour (3600 seconds)
+        retryAttempts: 3, // Retry authorization 3 times on failure
+        retryDelay: 1000, // Wait 1 second between retries
+        analytics: true, // Enable analytics tracking
+        debug: isDebug // Enable debug logging in development
+      }
     })
 
     // Initialize with default config
@@ -52,6 +66,9 @@ class MarqueeNotificationBarWidget extends KoruWidget {
     // Parse individual message fields from Koru into messages array
     const parsedConfig = this.parseKoruConfig(config)
 
+    // Validate configuration before proceeding
+    this.validateConfig(parsedConfig)
+
     // Merge config from Koru with defaults
     this.widgetConfig = {
       containerId: 'marquee-notification-bar',
@@ -65,6 +82,101 @@ class MarqueeNotificationBarWidget extends KoruWidget {
     if (!this.core.shouldRender()) {
       this.log('No messages to display, widget will not render')
     }
+  }
+
+  /**
+   * Validate widget configuration
+   * @param config Configuration to validate
+   * @throws Error if configuration is invalid
+   */
+  private validateConfig(config: MarqueeWidgetConfig): void {
+    // Check if messages array exists and has at least one message
+    if (!config.messages || !Array.isArray(config.messages)) {
+      throw new Error(
+        'Widget configuration error: messages array is required'
+      )
+    }
+
+    if (config.messages.length === 0) {
+      throw new Error(
+        'Widget configuration error: At least one message is required. Please configure message1_text in Koru App Manager.'
+      )
+    }
+
+    // Validate each message
+    config.messages.forEach((message, index) => {
+      // Check if message has text
+      if (!message.text || typeof message.text !== 'string') {
+        throw new Error(
+          `Widget configuration error: Message ${index + 1} is missing text`
+        )
+      }
+
+      // Check if text is not empty after trimming
+      if (message.text.trim() === '') {
+        throw new Error(
+          `Widget configuration error: Message ${index + 1} has empty text`
+        )
+      }
+
+      // Validate icon position if icon is provided
+      if (message.icon && message.iconPosition) {
+        if (!['left', 'right'].includes(message.iconPosition)) {
+          throw new Error(
+            `Widget configuration error: Message ${index + 1} has invalid iconPosition. Must be 'left' or 'right'`
+          )
+        }
+      }
+    })
+
+    // Validate fontSize if provided
+    if (config.fontSize) {
+      const validFontSizes = ['12px', '14px', '16px', '18px']
+      if (!validFontSizes.includes(config.fontSize)) {
+        throw new Error(
+          `Widget configuration error: fontSize must be one of ${validFontSizes.join(', ')}`
+        )
+      }
+    }
+
+    // Validate speed if provided
+    if (config.speed) {
+      const validSpeeds = ['slow', 'normal', 'fast']
+      if (!validSpeeds.includes(config.speed)) {
+        throw new Error(
+          `Widget configuration error: speed must be one of ${validSpeeds.join(', ')}`
+        )
+      }
+    }
+
+    // Validate position if provided
+    if (config.position) {
+      const validPositions = ['top', 'bottom']
+      if (!validPositions.includes(config.position)) {
+        throw new Error(
+          `Widget configuration error: position must be 'top' or 'bottom'`
+        )
+      }
+    }
+
+    // Validate color patterns if provided
+    const hexColorPattern = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
+
+    if (config.backgroundColor && !hexColorPattern.test(config.backgroundColor)) {
+      throw new Error(
+        'Widget configuration error: backgroundColor must be a valid hex color (e.g., #000000)'
+      )
+    }
+
+    if (config.textColor && !hexColorPattern.test(config.textColor)) {
+      throw new Error(
+        'Widget configuration error: textColor must be a valid hex color (e.g., #FFFFFF)'
+      )
+    }
+
+    this.log('Configuration validation passed', {
+      messageCount: config.messages.length
+    })
   }
 
   /**

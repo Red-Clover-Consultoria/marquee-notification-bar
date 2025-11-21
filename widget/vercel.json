@@ -22,7 +22,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/examples/programmatic.html"
+      "destination": "/test.html"
     }
   ]
 }
