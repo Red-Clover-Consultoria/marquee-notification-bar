@@ -10,12 +10,7 @@ module.exports = (env, argv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'marquee-widget.js',
-      library: {
-        name: 'MarqueeNotificationBarWidget',
-        type: 'umd',
-        export: 'default'
-      },
-      globalObject: 'this',
+      // No library config - creates self-executing bundle like IIFE
       clean: true
     },
 
@@ -64,12 +59,7 @@ module.exports = (env, argv) => {
       output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
-        library: {
-          name: 'MarqueeNotificationBarWidget',
-          type: 'umd',
-          export: 'default'
-        },
-        globalObject: 'this',
+        // No library config - creates self-executing bundle like IIFE
         clean: true
       },
       entry: {
