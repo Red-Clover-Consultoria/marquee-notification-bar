@@ -1,413 +1,177 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Marquee Notification Bar Configuration",
-  "description": "Configuration schema for Marquee Notification Bar Widget in Koru App Manager",
-  "type": "object",
-  "properties": {
-    "message1_text": {
-      "type": "string",
-      "title": "Mensaje 1",
-      "description": "Texto del primer mensaje (requerido)",
-      "maxLength": 500,
-      "minLength": 1
-    },
-    "message1_icon": {
-      "type": "string",
-      "title": "Icono 1",
-      "description": "Emoji o URL de imagen para el mensaje 1",
-      "maxLength": 200
-    },
-    "message1_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 1",
-      "description": "Posición del icono respecto al texto",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message2_text": {
-      "type": "string",
-      "title": "Mensaje 2",
-      "description": "Texto del segundo mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message2_icon": {
-      "type": "string",
-      "title": "Icono 2",
-      "description": "Emoji o URL de imagen para el mensaje 2",
-      "maxLength": 200
-    },
-    "message2_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 2",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message3_text": {
-      "type": "string",
-      "title": "Mensaje 3",
-      "description": "Texto del tercer mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message3_icon": {
-      "type": "string",
-      "title": "Icono 3",
-      "description": "Emoji o URL de imagen para el mensaje 3",
-      "maxLength": 200
-    },
-    "message3_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 3",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message4_text": {
-      "type": "string",
-      "title": "Mensaje 4",
-      "description": "Texto del cuarto mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message4_icon": {
-      "type": "string",
-      "title": "Icono 4",
-      "description": "Emoji o URL de imagen para el mensaje 4",
-      "maxLength": 200
-    },
-    "message4_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 4",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message5_text": {
-      "type": "string",
-      "title": "Mensaje 5",
-      "description": "Texto del quinto mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message5_icon": {
-      "type": "string",
-      "title": "Icono 5",
-      "description": "Emoji o URL de imagen para el mensaje 5",
-      "maxLength": 200
-    },
-    "message5_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 5",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message6_text": {
-      "type": "string",
-      "title": "Mensaje 6",
-      "description": "Texto del sexto mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message6_icon": {
-      "type": "string",
-      "title": "Icono 6",
-      "description": "Emoji o URL de imagen para el mensaje 6",
-      "maxLength": 200
-    },
-    "message6_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 6",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message7_text": {
-      "type": "string",
-      "title": "Mensaje 7",
-      "description": "Texto del séptimo mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message7_icon": {
-      "type": "string",
-      "title": "Icono 7",
-      "description": "Emoji o URL de imagen para el mensaje 7",
-      "maxLength": 200
-    },
-    "message7_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 7",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message8_text": {
-      "type": "string",
-      "title": "Mensaje 8",
-      "description": "Texto del octavo mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message8_icon": {
-      "type": "string",
-      "title": "Icono 8",
-      "description": "Emoji o URL de imagen para el mensaje 8",
-      "maxLength": 200
-    },
-    "message8_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 8",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message9_text": {
-      "type": "string",
-      "title": "Mensaje 9",
-      "description": "Texto del noveno mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message9_icon": {
-      "type": "string",
-      "title": "Icono 9",
-      "description": "Emoji o URL de imagen para el mensaje 9",
-      "maxLength": 200
-    },
-    "message9_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 9",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "message10_text": {
-      "type": "string",
-      "title": "Mensaje 10",
-      "description": "Texto del décimo mensaje (opcional)",
-      "maxLength": 500
-    },
-    "message10_icon": {
-      "type": "string",
-      "title": "Icono 10",
-      "description": "Emoji o URL de imagen para el mensaje 10",
-      "maxLength": 200
-    },
-    "message10_iconPosition": {
-      "type": "string",
-      "title": "Posición del Icono 10",
-      "enum": ["left", "right"],
-      "default": "left"
-    },
-    "separator": {
-      "type": "string",
-      "title": "Separador",
-      "description": "Carácter o texto que separa los mensajes",
-      "maxLength": 10,
-      "default": "•"
-    },
-    "backgroundColor": {
-      "type": "string",
-      "title": "Color de Fondo",
-      "description": "Color hexadecimal para el fondo (ej: #000000)",
-      "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-      "default": "#000000"
-    },
-    "textColor": {
-      "type": "string",
-      "title": "Color de Texto",
-      "description": "Color hexadecimal para el texto (ej: #FFFFFF)",
-      "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-      "default": "#FFFFFF"
-    },
-    "fontSize": {
-      "type": "string",
-      "title": "Tamaño de Fuente",
-      "description": "Tamaño del texto en píxeles",
-      "enum": ["12px", "14px", "16px", "18px"],
-      "default": "14px"
-    },
-    "speed": {
-      "type": "string",
-      "title": "Velocidad de Animación",
-      "description": "Velocidad del desplazamiento del marquee",
-      "enum": ["slow", "normal", "fast"],
-      "default": "normal"
-    },
-    "position": {
-      "type": "string",
-      "title": "Posición",
-      "description": "Ubicación del widget en la pantalla",
-      "enum": ["top", "bottom"],
-      "default": "top"
-    },
-    "pauseOnHover": {
-      "type": "boolean",
-      "title": "Pausar al Pasar el Mouse",
-      "description": "Pausa la animación cuando el usuario pasa el mouse sobre el widget",
-      "default": true
-    },
-    "showMarquee": {
-      "type": "boolean",
-      "title": "Habilitar Animación",
-      "description": "Activa o desactiva el efecto de desplazamiento automático",
-      "default": true
-    },
-    "containerId": {
-      "type": "string",
-      "title": "ID del Contenedor",
-      "description": "ID del elemento HTML donde se renderizará el widget (avanzado)",
-      "default": "marquee-notification-bar"
-    }
+  "enabled": {
+    "type": "boolean",
+    "required": false,
+    "default": true,
+    "description": "Enable or disable the widget"
   },
-  "required": ["message1_text"],
-  "ui": {
-    "message1_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message2_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message3_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message4_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message5_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message6_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message7_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message8_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message9_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "message10_text": {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "rows": 3
-      }
-    },
-    "backgroundColor": {
-      "ui:widget": "color"
-    },
-    "textColor": {
-      "ui:widget": "color"
-    },
-    "ui:order": [
-      "message1_text",
-      "message1_icon",
-      "message1_iconPosition",
-      "message2_text",
-      "message2_icon",
-      "message2_iconPosition",
-      "message3_text",
-      "message3_icon",
-      "message3_iconPosition",
-      "message4_text",
-      "message4_icon",
-      "message4_iconPosition",
-      "message5_text",
-      "message5_icon",
-      "message5_iconPosition",
-      "message6_text",
-      "message6_icon",
-      "message6_iconPosition",
-      "message7_text",
-      "message7_icon",
-      "message7_iconPosition",
-      "message8_text",
-      "message8_icon",
-      "message8_iconPosition",
-      "message9_text",
-      "message9_icon",
-      "message9_iconPosition",
-      "message10_text",
-      "message10_icon",
-      "message10_iconPosition",
-      "*"
-    ]
+  "message1_text": {
+    "type": "string",
+    "required": true,
+    "maxLength": 500,
+    "description": "Text for the first message",
+    "example": "Free shipping on orders over $50"
   },
-  "groups": [
-    {
-      "title": "Mensajes",
-      "fields": [
-        "message1_text",
-        "message1_icon",
-        "message1_iconPosition",
-        "message2_text",
-        "message2_icon",
-        "message2_iconPosition",
-        "message3_text",
-        "message3_icon",
-        "message3_iconPosition",
-        "message4_text",
-        "message4_icon",
-        "message4_iconPosition",
-        "message5_text",
-        "message5_icon",
-        "message5_iconPosition",
-        "message6_text",
-        "message6_icon",
-        "message6_iconPosition",
-        "message7_text",
-        "message7_icon",
-        "message7_iconPosition",
-        "message8_text",
-        "message8_icon",
-        "message8_iconPosition",
-        "message9_text",
-        "message9_icon",
-        "message9_iconPosition",
-        "message10_text",
-        "message10_icon",
-        "message10_iconPosition",
-        "separator"
-      ]
-    },
-    {
-      "title": "Apariencia",
-      "fields": [
-        "backgroundColor",
-        "textColor",
-        "fontSize"
-      ]
-    },
-    {
-      "title": "Comportamiento",
-      "fields": [
-        "speed",
-        "position",
-        "pauseOnHover",
-        "showMarquee"
-      ]
-    },
-    {
-      "title": "Avanzado",
-      "fields": [
-        "containerId"
-      ]
-    }
-  ]
+  "message1_icon": {
+    "type": "string",
+    "required": false,
+    "maxLength": 200,
+    "description": "Emoji or image URL for message 1",
+    "example": "🚚"
+  },
+  "message1_iconPosition": {
+    "type": "string",
+    "required": false,
+    "enum": ["left", "right"],
+    "default": "left",
+    "description": "Icon position for message 1"
+  },
+  "message2_text": {
+    "type": "string",
+    "required": false,
+    "maxLength": 500,
+    "description": "Text for the second message (optional)",
+    "example": "10% off on your first purchase"
+  },
+  "message2_icon": {
+    "type": "string",
+    "required": false,
+    "maxLength": 200,
+    "description": "Emoji or image URL for message 2",
+    "example": "💰"
+  },
+  "message2_iconPosition": {
+    "type": "string",
+    "required": false,
+    "enum": ["left", "right"],
+    "default": "left",
+    "description": "Icon position for message 2"
+  },
+  "message3_text": {
+    "type": "string",
+    "required": false,
+    "maxLength": 500,
+    "description": "Text for the third message (optional)",
+    "example": "New arrivals every week"
+  },
+  "message3_icon": {
+    "type": "string",
+    "required": false,
+    "maxLength": 200,
+    "description": "Emoji or image URL for message 3",
+    "example": "✨"
+  },
+  "message3_iconPosition": {
+    "type": "string",
+    "required": false,
+    "enum": ["left", "right"],
+    "default": "left",
+    "description": "Icon position for message 3"
+  },
+  "message4_text": {
+    "type": "string",
+    "required": false,
+    "maxLength": 500,
+    "description": "Text for the fourth message (optional)",
+    "example": "Shop now and save"
+  },
+  "message4_icon": {
+    "type": "string",
+    "required": false,
+    "maxLength": 200,
+    "description": "Emoji or image URL for message 4",
+    "example": "🛍️"
+  },
+  "message4_iconPosition": {
+    "type": "string",
+    "required": false,
+    "enum": ["left", "right"],
+    "default": "left",
+    "description": "Icon position for message 4"
+  },
+  "message5_text": {
+    "type": "string",
+    "required": false,
+    "maxLength": 500,
+    "description": "Text for the fifth message (optional)",
+    "example": "24/7 customer support"
+  },
+  "message5_icon": {
+    "type": "string",
+    "required": false,
+    "maxLength": 200,
+    "description": "Emoji or image URL for message 5",
+    "example": "💬"
+  },
+  "message5_iconPosition": {
+    "type": "string",
+    "required": false,
+    "enum": ["left", "right"],
+    "default": "left",
+    "description": "Icon position for message 5"
+  },
+  "separator": {
+    "type": "string",
+    "required": false,
+    "maxLength": 10,
+    "default": "•",
+    "description": "Character to separate messages",
+    "example": "•"
+  },
+  "backgroundColor": {
+    "type": "string",
+    "required": false,
+    "pattern": "^#[0-9A-Fa-f]{6}$",
+    "default": "#000000",
+    "description": "Background color (hex)",
+    "example": "#0066cc"
+  },
+  "textColor": {
+    "type": "string",
+    "required": false,
+    "pattern": "^#[0-9A-Fa-f]{6}$",
+    "default": "#FFFFFF",
+    "description": "Text color (hex)",
+    "example": "#FFFFFF"
+  },
+  "fontSize": {
+    "type": "string",
+    "required": false,
+    "enum": ["12px", "14px", "16px", "18px"],
+    "default": "14px",
+    "description": "Font size"
+  },
+  "speed": {
+    "type": "string",
+    "required": false,
+    "enum": ["slow", "normal", "fast"],
+    "default": "normal",
+    "description": "Animation speed"
+  },
+  "position": {
+    "type": "string",
+    "required": false,
+    "enum": ["top", "bottom"],
+    "default": "top",
+    "description": "Widget position on page"
+  },
+  "pauseOnHover": {
+    "type": "boolean",
+    "required": false,
+    "default": true,
+    "description": "Pause animation when mouse hovers"
+  },
+  "showMarquee": {
+    "type": "boolean",
+    "required": false,
+    "default": true,
+    "description": "Enable scrolling animation"
+  },
+  "containerId": {
+    "type": "string",
+    "required": false,
+    "default": "marquee-notification-bar",
+    "description": "Custom HTML container ID (advanced)",
+    "example": "marquee-notification-bar"
+  }
 }

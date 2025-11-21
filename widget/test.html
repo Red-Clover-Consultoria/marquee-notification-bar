@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -211,7 +212,11 @@
     }
   </style>
 </head>
+
 <body>
+  <!-- Widget Container - The widget will render here -->
+  <div id="marquee-notification-bar"></div>
+
   <!--
     🧪 WIDGET TEST CONFIGURATION
 
@@ -222,12 +227,8 @@
     2. Koru backend is running (default: http://localhost:3000)
     3. Widget is configured in Koru dashboard with test credentials below
   -->
-  <script
-    src="./dist/marquee-widget.min.js"
-    data-website-id="223bb435-91a9-4d36-8b09-1d39590b2451"
-    data-app-id="7b720803-3d5b-4041-9fbf-983220ec2123"
-    data-app-manager-url="https://app-manager.vercel.app"
-  ></script>
+  <script src="./dist/marquee-widget.min.js" data-website-id="223bb435-91a9-4d36-8b09-1d39590b2451"
+    data-app-id="7b720803-3d5b-4041-9fbf-983220ec2123" data-app-manager-url="https://app-manager.vercel.app"></script>
 
   <div class="container">
     <div style="text-align: center;">
@@ -357,11 +358,7 @@
   <script>
     // Log de debugging adicional
     console.log('%c🧪 Test Page Loaded', 'color: #667eea; font-size: 16px; font-weight: bold;');
-    console.log('Widget configuration:', {
-      websiteId: 'test-website-001',
-      appId: 'marquee-notification-bar',
-      appManagerUrl: 'http://localhost:3000'
-    });
   </script>
 </body>
+
 </html>

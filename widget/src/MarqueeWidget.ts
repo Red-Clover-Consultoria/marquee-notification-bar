@@ -227,6 +227,12 @@ class MarqueeNotificationBarWidget extends KoruWidget {
       this.core.updateConfig(this.widgetConfig)
     }
     try {
+      // Check if widget is enabled
+      if (this.widgetConfig.enabled === false) {
+        this.log('Widget is disabled by configuration')
+        return
+      }
+
       if (!this.core.shouldRender()) {
         this.log('Skipping render: no messages configured')
         return
