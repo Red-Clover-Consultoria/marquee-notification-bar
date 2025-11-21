@@ -29,22 +29,16 @@ class MarqueeNotificationBarWidget extends KoruWidget {
   protected widgetConfig: MarqueeWidgetConfig
 
   constructor() {
-    // Detect debug mode from URL parameter or localhost
-    const isDebug =
-      new URLSearchParams(window.location.search).has('debug') ||
-      window.location.hostname === 'localhost' ||
-      window.location.hostname === '127.0.0.1'
-
     super({
       name: 'marquee-notification-bar',
       version: '0.0.3',
       options: {
-        cache: true, // Enable caching for better performance
-        cacheDuration: 3600, // Cache for 1 hour (3600 seconds)
+        cache: false, // Disable cache for testing
+        cacheDuration: 0, // No cache
         retryAttempts: 3, // Retry authorization 3 times on failure
         retryDelay: 1000, // Wait 1 second between retries
         analytics: true, // Enable analytics tracking
-        debug: isDebug // Enable debug logging in development
+        debug: true // Always enable debug for now
       }
     })
 
@@ -184,8 +178,8 @@ class MarqueeNotificationBarWidget extends KoruWidget {
    * Supports both formats: individual fields (message1_text, etc.) and direct messages array
    */
   private parseKoruConfig(config: any): MarqueeWidgetConfig {
-    // If messages array is already provided, use it directly (backward compatibility)
-    if (config.messages && Array.isArray(config.messages)) {
+    // If messages is a valid array, use it directly (backward compatibility)
+    if (config.messages && Array.isArray(config.messages) && config.messages.length > 0) {
       return config as MarqueeWidgetConfig
     }
 
@@ -209,9 +203,10 @@ class MarqueeNotificationBarWidget extends KoruWidget {
       }
     }
 
-    // Return config with parsed messages array
+    // Return config with parsed messages array (remove old messages field)
+    const { messages: _oldMessages, ...restConfig } = config
     return {
-      ...config,
+      ...restConfig,
       messages
     }
   }
